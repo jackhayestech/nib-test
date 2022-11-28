@@ -1,0 +1,12 @@
+{
+  "name": "codingchallenge",
+  "version": "1.0.0",
+  "description": "NIB coding challenge",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "npm run build && node dist/."
+  },
+  "author": "Jack Hayes",
+  "license": "ISC"
+}

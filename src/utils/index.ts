@@ -1,2 +1,2 @@
-export { loadData } from './loadData'
-export { orderProduct } from './orderProduct'
+export { loadData } from "./loadData";
+export { orderProduct } from "./orderProduct";

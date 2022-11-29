@@ -27,23 +27,24 @@ export class Product {
     this.deliveryLeadTime = data.deliveryLeadTime;
   }
 
-  checkProductStockLevels = (
-    { quantityOnHand, reorderThreshold, productId, reorderAmount }: Product,
-    numRequired: number
-  ): boolean => {
+  /**
+   * Checks if the products stock can be filled.
+   * @param numRequired
+   * @returns
+   */
+  checkProductStockLevels = (numRequired: number): boolean => {
     // Checks if the number required of a product falls below the order threshold.
     // We do this check here because if we get an order greater than the order threshold we could run into a situation where an order can never be fulfilled.
-    if (quantityOnHand - numRequired < reorderThreshold) {
+    if (this.quantityOnHand - numRequired < this.reorderThreshold) {
       // Again this checks if the number required is greater than the default order amount so we can order the right amount of stock
       const orderAmount =
-        numRequired > reorderAmount ? numRequired : reorderAmount;
-      
-      orderProduct(productId, orderAmount);
+        numRequired > this.reorderAmount ? numRequired : this.reorderAmount;
+
+      orderProduct(this.productId, orderAmount);
     }
 
     // There is enough stock on hand to process the order.
-    if (quantityOnHand - numRequired > 0) {
-      this.updateStockLevel(numRequired)
+    if (this.quantityOnHand - numRequired >= 0) {
       return true;
     }
 
@@ -51,6 +52,6 @@ export class Product {
   };
 
   updateStockLevel = (orderAmount: number): void => {
-    this.quantityOnHand -= orderAmount
-  }
+    this.quantityOnHand -= orderAmount;
+  };
 }

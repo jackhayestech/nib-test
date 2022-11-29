@@ -1,10 +1,21 @@
 import { IOrder, Order } from "./Order.model";
 import { Product, IProduct } from "./Product.model";
+import { OrderStatus } from '../interfaces'
 
 // Interface defining the product object
 export interface OrderManagementData {
-  products: IProduct[];
-  orders: IOrder[];
+  products: IProduct[]
+  orders: IOrder[]
+}
+
+interface OrderDisplay {
+  orderId: number
+  status: OrderStatus
+}
+
+interface ProductStockLevels {
+  productId: number
+  quantityOnHand: number
 }
 
 export class OrderManagement {
@@ -34,4 +45,24 @@ export class OrderManagement {
     });
     return unfulfilled;
   };
+
+  /**
+   * Displays all the orders statuses
+   */
+  displayOrdersStatuses = (): void => {
+    const orders: OrderDisplay[] = this.orders.map(({orderId, status}) => ({orderId, status }));
+
+    console.log('Order Statuses')
+    console.log(JSON.stringify(orders,null,2))
+  }
+
+  /**
+   * Displays all the products stock levels
+   */
+   displayProductStockLevels = (): void => {
+    const productStock: ProductStockLevels[] = this.products.map(({productId, quantityOnHand}) => ({productId, quantityOnHand }));
+
+    console.log('Product stock levels');
+    console.log(JSON.stringify(productStock,null,2))
+  }
 }

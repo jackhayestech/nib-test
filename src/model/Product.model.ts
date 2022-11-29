@@ -43,6 +43,7 @@ export class Product {
 
     // There is enough stock on hand to process the order.
     if (quantityOnHand - numRequired > 0) {
+      this.updateStockLevel(numRequired)
       return true;
     }
 
@@ -50,6 +51,6 @@ export class Product {
   };
 
   updateStockLevel = (orderAmount: number): void => {
-    this.quantityOnHand - orderAmount
+    this.quantityOnHand -= orderAmount
   }
 }
